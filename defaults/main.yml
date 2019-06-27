@@ -1,0 +1,3 @@
+---
+
+report_destination: "/tmp/report-{{ ansible_facts.hostname }}.txt"

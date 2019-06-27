@@ -3,5 +3,8 @@
 - name: Generate report
   template:
     src: get_report.j2
-    dest: /tmp/report.txt
+    dest: "{{ report_destination }}"
   delegate_to: localhost
+
+- debug:
+    msg: 'Check {{ report_destination }} for complete report on the status.'
