@@ -1,0 +1,6 @@
+---
+
+- set_fact:
+    swap_total: "{{ ansible_facts.memory_mb.swap.total }}"
+    swap_used: "{{ ansible_facts.memory_mb.swap.used }}"
+    swap_free: "{{ ansible_facts.memory_mb.swap.free }}"

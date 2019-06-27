@@ -1,0 +1,7 @@
+---
+
+- name: Generate report
+  template:
+    src: get_report.j2
+    dest: /tmp/report.txt
+  delegate_to: localhost

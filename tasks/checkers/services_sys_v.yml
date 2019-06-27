@@ -1,0 +1,29 @@
+---
+
+- name: Collect facts about system services (SysV)
+  service_facts:
+  register: services_state_sysv
+
+- set_fact:
+    httpd_sysv: "{{ services_state_sysv.ansible_facts.services.httpd.state }}"
+  when: "services_state_sysv.ansible_facts.services.httpd.state is defined"
+
+- set_fact:
+    nginx_sysv: "{{ services_state_sysv.ansible_facts.services.nginx.state }}"
+  when: "services_state_sysv.ansible_facts.services.nginx.state is defined"
+
+- set_fact:
+    php_fpm_sysv: "{{ services_state_sysv.ansible_facts.services.php_fpm.state }}"
+  when: "services_state_sysv.ansible_facts.services.php_fpm.state is defined"
+
+- set_fact:
+    mysql_sysv: "{{ services_state_sysv.ansible_facts.services.mysql.state }}"
+  when: "services_state_sysv.ansible_facts.services.mysql.state is defined"
+
+- set_fact:
+    mysqld_sysv: "{{ services_state_sysv.ansible_facts.services.mysqld.state }}"
+  when: "services_state_sysv.ansible_facts.services.mysqld.state is defined"
+
+- set_fact:
+    mariadb_sysv: "{{ services_state_sysv.ansible_facts.services.mariadb.state }}"
+  when: "services_state_sysv.ansible_facts.services.mariadb.state is defined"

@@ -1,0 +1,68 @@
+Internet: {% if internet_connection.rc == 0 %}Connected{%else%}Not connected{% endif %}
+
+OS Type: {{ ansible_os_family }}
+OS Name: {{ os_distribution }}
+OS Version: {{ os_distribution_version }}
+OS Architecture: {{ os_architecture }}
+Kernel: {{ os_kernel }}
+Hostname: {{ hostname }}
+Internal IPs: {% for ip in ips %}{% if ip | regex_search('^10\..*') or ip | regex_search('(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.).*') or ip | regex_search('^192\.168\.*') or ip | regex_search('^127\..*') %}{{ ip }} {% endif %}{% endfor %}
+
+External IPs: {% for ip in ips %}{% if not ip | regex_search('^10\..*') and not ip | regex_search('(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.).*') and not ip | regex_search('^192\.168\.*') and not ip | regex_search('^127\..*') %}{{ ip }} {% endif %}{% endfor %}
+
+Logged in users:
+{% for user in logged_in_users %}{{ user }}
+{% endfor %}
+
+RAM Total: {{ ram_total }} MB
+RAM Used: {{ ram_used }} MB
+RAM Free: {{ ram_free }} MB
+
+{% if swap_total != '0' %}SWAP Total: {{ swap_total }} MB
+SWAP Used: {{ swap_used }} MB
+SWAP Free: {{ swap_free }} MB
+{% else %}
+SWAP: none
+{% endif %}
+
+Mountpoint    Total    Available    Used
+{% for mount in ansible_mounts %}
+{% if mount.size_available != 0 %}{% set disk_available = (mount.size_available / 1024 / 1024 / 1024 ) | round | int %}
+{% set disk_total = (mount.size_total / 1024 / 1024 / 1024 ) | round | int %}
+{% set disk_free_percentage = (100 - (100 * disk_available) / disk_total) %}
+{{ mount.mount }} 		{{ disk_total }}GB    {{ disk_available }}GB    {{ disk_free_percentage|round }}%{% endif %}	
+{% endfor %}
+
+Load Average and System Uptime: {{ uptime }}
+
+Last 10 lines in /var/log/messages:
+=========================
+{% for msg in messages %}{{ msg }}
+{% endfor %}
+=========================
+
+Common services state:
+
+{% if 'upstart' in init or 'sysvinit' in init %}Apache: {% if httpd_sysv is defined %}{{ httpd_sysv }}{% else %}no such service{% endif %}
+
+Nginx: {% if nginx_sysv is defined %}{{ nginx_sysv }}{% else %}no such service{% endif %}
+
+PHP-FPM: {% if php_fpm_sysv is defined %}{{ php_fpm }}{% else %}no such service{% endif %}
+
+MySQL: {% if mysql_sysv is defined %}{{ mysql_sysv }}{% else %}no such service{% endif %}
+
+MySQLd: {% if mysqld_sysv is defined %}{{ mysqld_sysv }}{% else %}no such service{% endif %}
+
+MariaDB: {% if mariadb_sysv is defined %}{{ mariadb_sysv }}{% else %}no such service{% endif %}
+{% elif 'systemd' in init %}Apache: {% if httpd is defined %}{{ httpd }}{% else %}no such service{% endif %}
+
+Nginx: {% if nginx is defined %}{{ nginx }}{% else %}no such service{% endif %}
+
+PHP-FPM: {% if php_fpm is defined %}{{ php_fpm }}{% else %}no such service{% endif %}
+
+MySQL: {% if mysql is defined %}{{ mysql }}{% else %}no such service{% endif %}
+
+MySQLd: {% if mysqld is defined %}{{ mysqld }}{% else %}no such service{% endif %}
+
+MariaDB: {% if mariadb is defined %}{{ mariadb }}{% else %}no such service{% endif %}
+{% endif %}

@@ -1,0 +1,7 @@
+---
+
+- command: "bash -c uptime | awk '{print $3}'"
+  register: uptime_raw
+
+- set_fact:
+    uptime: "{{ uptime_raw.stdout_lines | first }}"  

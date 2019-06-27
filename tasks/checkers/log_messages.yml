@@ -1,0 +1,7 @@
+---
+
+- command: 'tail -10 /var/log/messages'
+  register: messages_raw
+
+- set_fact:
+    messages: "{{ messages_raw.stdout_lines }}"

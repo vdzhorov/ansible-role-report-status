@@ -1,0 +1,6 @@
+---
+
+- name: Check if there is Internet connection
+  shell: 'ping -c 1 google.com &> /dev/null'
+  register: internet_connection
+  failed_when: internet_connection.rc != 0

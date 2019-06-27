@@ -1,0 +1,47 @@
+---
+
+- name: Collect facts about system services (Systemd)
+  service_facts:
+  register: services_state
+
+- systemd:
+    name: httpd
+  register: httpd
+
+- set_fact:
+    httpd: "{{ httpd.status.SubState }}"
+
+- systemd:
+    name: nginx
+  register: nginx
+
+- set_fact:
+    nginx: "{{ nginx.status.SubState }}"
+
+- systemd:
+    name: php_fpm
+  register: php_fpm
+
+- set_fact:
+    php_fpm: "{{ php_fpm.status.SubState }}"
+
+- systemd:
+    name: mariadb
+  register: mariadb
+
+- set_fact:
+    mariadb: "{{ mariadb.status.SubState }}"
+
+- systemd:
+    name: mysql
+  register: mysql
+
+- set_fact:
+    mysql: "{{ mysql.status.SubState }}"
+
+- systemd:
+    name: mysqld
+  register: mysqld
+
+- set_fact:
+    mysqld: "{{ mysqld.status.SubState }}"

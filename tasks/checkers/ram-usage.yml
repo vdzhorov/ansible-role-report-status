@@ -1,0 +1,6 @@
+---
+
+- set_fact:
+    ram_total: "{{ ansible_facts.memory_mb.real.total }}"
+    ram_used: "{{ ansible_facts.memory_mb.real.used }}"
+    ram_free: "{{ ansible_facts.memory_mb.real.free }}"

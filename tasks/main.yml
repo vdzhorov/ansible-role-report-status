@@ -1,0 +1,19 @@
+---
+
+# Checkers
+- include: 'checkers/os.yml'
+- include: 'checkers/internet-connection.yml'
+- include: 'checkers/hostname.yml'
+- include: 'checkers/ips.yml'
+- include: 'checkers/logged-in-users.yml'
+- include: 'checkers/ram-usage.yml'
+- include: 'checkers/swap.yml'
+- include: 'checkers/uptime.yml'
+- include: 'checkers/log_messages.yml'
+- include: 'checkers/services_sys_v.yml'
+  when: "'upstart' in init or 'sysvinit' in init"
+- include: 'checkers/services_systemd.yml'
+  when: "'systemd' in init"
+
+# Generate reports
+- include: 'reports/generate-report.yml'

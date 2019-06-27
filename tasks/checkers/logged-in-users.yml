@@ -1,0 +1,7 @@
+---
+
+- command: 'bash -c who'
+  register: logged_in_users_raw
+
+- set_fact:
+    logged_in_users: "{{ logged_in_users_raw.stdout_lines }}"
