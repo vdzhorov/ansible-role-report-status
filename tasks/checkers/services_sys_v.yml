@@ -13,7 +13,7 @@
   when: "services_state_sysv.ansible_facts.services.nginx.state is defined"
 
 - set_fact:
-    php_fpm_sysv: "{{ services_state_sysv.ansible_facts.services.php_fpm.state }}"
+    php_fpm_sysv: "{{ services_state_sysv.ansible_facts.services.php-fpm.state }}"
   when: "services_state_sysv.ansible_facts.services.php_fpm.state is defined"
 
 - set_fact:

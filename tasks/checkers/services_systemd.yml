@@ -19,7 +19,7 @@
     nginx: "{{ nginx.status.SubState }}"
 
 - systemd:
-    name: php_fpm
+    name: php-fpm
   register: php_fpm
 
 - set_fact:
