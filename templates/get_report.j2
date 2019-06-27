@@ -10,6 +10,7 @@ Internal IPs: {% for ip in ips %}{% if ip | regex_search('^10\..*') or ip | rege
 
 External IPs: {% for ip in ips %}{% if not ip | regex_search('^10\..*') and not ip | regex_search('(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.).*') and not ip | regex_search('^192\.168\.*') and not ip | regex_search('^127\..*') %}{{ ip }} {% endif %}{% endfor %}
 
+Resolvers: {{ resolvers|join(', ') }}
 Logged in users:
 {% for user in logged_in_users %}{{ user }}
 {% endfor %}

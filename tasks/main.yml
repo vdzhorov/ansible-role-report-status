@@ -5,6 +5,7 @@
 - include: 'checkers/internet-connection.yml'
 - include: 'checkers/hostname.yml'
 - include: 'checkers/ips.yml'
+- include: 'checkers/resolvers.yml'
 - include: 'checkers/logged-in-users.yml'
 - include: 'checkers/ram-usage.yml'
 - include: 'checkers/swap.yml'

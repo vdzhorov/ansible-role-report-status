@@ -7,4 +7,4 @@
   delegate_to: localhost
 
 - debug:
-    msg: 'Check {{ report_destination }} for complete report on the status.'
+    msg: 'Check {{ report_destination }} for detailed report.'
