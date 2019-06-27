@@ -1,4 +1,4 @@
 ---
 
 - set_fact:
-    hostname: "{{ ansible_fqdn }}"
+    hostname: "{{ ansible_facts.hostname }}"
